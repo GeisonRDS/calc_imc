@@ -144,11 +144,68 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  Text(
-                    _infoText,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 25.0),
-                  )
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    height: 350.0,
+                    child: ListView(
+                      // This next line does the trick.
+                      scrollDirection: Axis.horizontal,
+
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(left: 60, right: 40.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40)),
+                          width: 300.0,
+                          child: Card(
+                            child: Wrap(
+                              children: <Widget>[
+                                ListTile(
+                                  title: Text(_infoText),
+                                  subtitle: Text(
+                                      'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla '),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 40.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40)),
+                          width: 300.0,
+                          child: Card(
+                            child: Wrap(
+                              children: <Widget>[
+                                ListTile(
+                                  title: Text(_infoText),
+                                  subtitle: Text(
+                                      'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla '),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 80),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40)),
+                          width: 300.0,
+                          child: Card(
+                            child: Wrap(
+                              children: <Widget>[
+                                ListTile(
+                                  title: Text(_infoText),
+                                  subtitle: Text(
+                                      'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla '),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             )));
