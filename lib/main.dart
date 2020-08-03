@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
   runApp(MaterialApp(
     home: Home(),
+    debugShowCheckedModeBanner: false,
   ));
 }
 
@@ -71,143 +73,116 @@ class _HomeState extends State<Home> {
         ),
         backgroundColor: Colors.green,
         body: SingleChildScrollView(
-            padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
             child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Icon(
-                    Icons.person_outline,
-                    size: 120.0,
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Icon(
+                Icons.person_outline,
+                size: 120.0,
+                color: Colors.white,
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Peso (kg)',
+                    labelStyle: TextStyle(color: Colors.white),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 25.0),
+                  cursorColor: Colors.white,
+                  controller: weightController,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Insira seu peso!';
+                    }
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Altura (cm)',
+                    labelStyle: TextStyle(color: Colors.white),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 25.0),
+                  cursorColor: Colors.white,
+                  controller: heightController,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Insira sua Altura!";
+                    }
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                child: Container(
+                  //decoration: BoxDecoration(
+                  //borderRadius: BorderRadius.circular(30)),
+                  height: 60.0,
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {
+                        _calculate();
+                      }
+                    },
+                    child: Text(
+                      'CALCULAR',
+                      style: TextStyle(color: Colors.green, fontSize: 25.0),
+                    ),
                     color: Colors.white,
                   ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: 'Peso (kg)',
-                      labelStyle: TextStyle(color: Colors.white),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                    ),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 25.0),
-                    cursorColor: Colors.white,
-                    controller: weightController,
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Insira seu peso!';
-                      }
-                    },
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: 'Altura (cm)',
-                      labelStyle: TextStyle(color: Colors.white),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                    ),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 25.0),
-                    cursorColor: Colors.white,
-                    controller: heightController,
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return "Insira sua Altura!";
-                      }
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0),
-                    child: Container(
-                      height: 60.0,
-                      child: RaisedButton(
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            _calculate();
-                          }
-                        },
-                        child: Text(
-                          'CALCULAR',
-                          style: TextStyle(color: Colors.green, fontSize: 25.0),
-                        ),
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    height: 350.0,
-                    child: ListView(
-                      // This next line does the trick.
-                      scrollDirection: Axis.horizontal,
-
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(left: 60, right: 40.0),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40)),
-                          width: 300.0,
-                          child: Card(
-                            child: Wrap(
-                              children: <Widget>[
-                                ListTile(
-                                  title: Text(_infoText),
-                                  subtitle: Text(
-                                      'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla '),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(right: 40.0),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40)),
-                          width: 300.0,
-                          child: Card(
-                            child: Wrap(
-                              children: <Widget>[
-                                ListTile(
-                                  title: Text(_infoText),
-                                  subtitle: Text(
-                                      'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla '),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(right: 80),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40)),
-                          width: 300.0,
-                          child: Card(
-                            child: Wrap(
-                              children: <Widget>[
-                                ListTile(
-                                  title: Text(_infoText),
-                                  subtitle: Text(
-                                      'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla '),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                ),
               ),
-            )));
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 400.0,
+                  enlargeCenterPage: true,
+                ),
+                items: [1, 2, 3, 4, 5].map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Text(
+                              'text $i',
+                              style: TextStyle(fontSize: 16.0),
+                            )),
+                      );
+                    },
+                  );
+                }).toList(),
+              )
+            ],
+          ),
+        )));
   }
 }
